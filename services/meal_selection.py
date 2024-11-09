@@ -26,7 +26,10 @@ def generate_daily_meal_plan(db: Session):
     # List to hold selected meals for the day
     daily_meal_plan = []
 
-    while total_calories < user_preferences.daily_calories:
+    # Define the calorie tolerance (+-20)
+    calorie_tolerance = 20
+
+    while not (user_preferences.daily_calories - calorie_tolerance <= total_calories <= user_preferences.daily_calories + calorie_tolerance):
         # Randomly select a meal
         meal = random.choice(meals)
 
@@ -38,5 +41,6 @@ def generate_daily_meal_plan(db: Session):
         total_protein += meal.protein
         total_carbs += meal.carbs
         total_fat += meal.fat
+
 
     return daily_meal_plan
