@@ -1,7 +1,6 @@
 from database.db import SessionLocal
 from services.meal_selection import generate_daily_meal_plan
-from crud.meal_crud import add_meal
-from crud.meal_crud import set_user_preferences
+from crud.meal_crud import add_meal, add_settings
 
 
 # Example code to add a meal and generate a daily meal plan
@@ -13,7 +12,7 @@ def main():
         add_meal(db, name="IDK Chicken", calories=400, protein=5215, carbs=3213, fat=1330)
 
         # Set user preferences (example values)
-        set_user_preferences(db, daily_calories=2000, daily_protein=150, daily_carbs=250, daily_fat=70, meals_per_day=3)
+        add_settings(db, daily_calories=2000, daily_protein=150, daily_carbs=250, daily_fat=70, meals_per_day=3)
 
         # Generate a meal plan
         daily_meal_plan = generate_daily_meal_plan(db)

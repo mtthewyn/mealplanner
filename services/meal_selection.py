@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
-from crud.meal_crud import get_user_preferences
 from models.meal_model import Meal
+from crud.meal_crud import get_user_preferences
 import random
 
 

@@ -17,38 +17,23 @@ def remove_meal(db: Session, meal_id: int):
         db.commit()
     return meal
 
-# Get user preferences
-def get_user_preferences(db: Session):
-    return db.query(UserPreferences).first()  # Fetches the first entry in the table
-
-
-# Add or update user preferences
-def set_user_preferences(db: Session, daily_calories: float, daily_protein: float,
-                         daily_carbs: float, daily_fat: float, meals_per_day: int):
-    # Check if preferences already exist
-    user_preferences = db.query(UserPreferences).first()
-
-    if user_preferences:
-        # Update existing preferences
-        user_preferences.daily_calories = daily_calories
-        user_preferences.daily_protein = daily_protein
-        user_preferences.daily_carbs = daily_carbs
-        user_preferences.daily_fat = daily_fat
-        user_preferences.meals_per_day = meals_per_day
-    else:
-        # Create new user preferences
-        user_preferences = UserPreferences(
-            daily_calories=daily_calories,
-            daily_protein=daily_protein,
-            daily_carbs=daily_carbs,
-            daily_fat=daily_fat,
-            meals_per_day=meals_per_day
-        )
-        db.add(user_preferences)
-
+def add_settings(db: Session, daily_calories: float, daily_protein: float, daily_carbs: float, daily_fat: float, meals_per_day: int):
+    settings = Settings(
+        daily_calories=daily_calories,
+        daily_protein=daily_protein,
+        daily_carbs=daily_carbs,
+        daily_fat=daily_fat,
+        meals_per_day=meals_per_day
+    )
+    db.add(settings)
     db.commit()
-    db.refresh(user_preferences)
-    return user_preferences
+    db.refresh(settings)
+    return settings
+
+def get_user_preferences(db: Session):
+    # Since there will only be one row in the settings table, we fetch it directly
+    settings = db.query(Settings).first()
+    return settings
 
 # Create a new meal plan entry
 def create_meal_plan(db: Session, day: str, meal_id: int):
