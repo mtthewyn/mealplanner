@@ -20,9 +20,8 @@ class Meal(Base):
     carbs = Column(Float, nullable=False)
     fat = Column(Float, nullable=False)
 
-# User Preferences Table
-class UserPreferences(Base):
-    __tablename__ = 'user_preferences'
+class Settings(Base):
+    __tablename__ = 'settings'
     id = Column(Integer, primary_key=True, index=True)
     daily_calories = Column(Float, nullable=False)
     daily_protein = Column(Float, nullable=False)
